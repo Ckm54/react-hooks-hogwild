@@ -66,7 +66,7 @@ function HogTile({hogs}){
 
   const hogTile = hogsDisplayed.map((hog) => {
     return (
-      <div className="pigTile" key={hog.name} onClick={handleClick} onDoubleClick={() => toggleHog(hog.name)} >
+      <div className="pigTile " key={hog.name} onClick={handleClick} onDoubleClick={() => toggleHog(hog.name)} >
         <h3>{hog.name}</h3>
         <img src={hog.image} alt={hog.name} />
         {hogInfo[0].key === hog.name ? hogInfo : null}
@@ -98,7 +98,9 @@ function HogTile({hogs}){
       </select>
     </div>
     <button onClick={handleGreased}>{showGreased ? "Only Greased" : "Show All"}</button>
-    {hogTile}
+    <div className="ui grid container">
+      {hogTile}
+    </div>
     </>
   )
 }
