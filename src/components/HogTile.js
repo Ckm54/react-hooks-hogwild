@@ -55,6 +55,13 @@ function HogTile({hogs}){
     }
     console.log(filter)
   }
+
+  const [showingTile, setShow] = useState(true)
+  function toggleHog(name) {
+    setShow(!showingTile)
+    const tilesshown = hogs.filter((hog) => hog.name !== name)
+    showHogs(tilesshown)
+  }
   
 
   const hogTile = hogsDisplayed.map((hog) => {
@@ -63,6 +70,7 @@ function HogTile({hogs}){
         <h3>{hog.name}</h3>
         <img src={hog.image} alt={hog.name} onClick={handleClick} />
         {hogInfo[0].key === hog.name ? hogInfo : null}
+        <button onClick={() => toggleHog(hog.name)}>{hogInfo[0].key === hog.name ? "Hide" : "Show"}</button>
       </div>
     )
   })
