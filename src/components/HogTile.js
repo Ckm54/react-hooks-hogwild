@@ -30,7 +30,7 @@ function HogTile({hogs}){
       <div className="pigTile" key={hog.name}>
         <h3>{hog.name}</h3>
         <img src={hog.image} alt={hog.name} onClick={handleClick} />
-        {hogInfo[0].key == hog.name ? hogInfo : null}
+        {hogInfo[0].key === hog.name ? hogInfo : null}
       </div>
     )
   })
