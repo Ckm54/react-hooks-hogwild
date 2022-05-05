@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import AddNew from "./AddNew";
 import HogInfo from "./HogInfo"
 
 function HogTile({hogs}){
@@ -62,20 +63,28 @@ function HogTile({hogs}){
     const tilesshown = hogs.filter((hog) => hog.name !== name)
     showHogs(tilesshown)
   }
+
+  function handleAddHog(event) {
+    event.preventDefault()
+    console.log(event.target['text'])
+  }
   
 
   const hogTile = hogsDisplayed.map((hog) => {
     return (
       <div className="pigTile" key={hog.name}>
         <h3>{hog.name}</h3>
-        <img src={hog.image} alt={hog.name} onClick={handleClick} />
+        <img src={hog.image} alt={hog.name} onClick={handleClick} onDoubleClick={() => toggleHog(hog.name)} />
         {hogInfo[0].key === hog.name ? hogInfo : null}
-        <button onClick={() => toggleHog(hog.name)}>{hogInfo[0].key === hog.name ? "Hide" : "Show"}</button>
+        {/* <button onClick={() => toggleHog(hog.name)}>{hogInfo[0].key === hog.name ? "Hide" : "Show"}</button> */}
       </div>
     )
   })
   return (
     <>
+    <AddNew handleSubmit={handleAddHog}/>
+    <br />
+    <br />
     <div>
     <h4>Sort hogs!!</h4>
       <select onChange={handleFilter}>
