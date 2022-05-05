@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import HogInfo from "./HogInfo"
 
 function HogTile({hogs}){
-  
+  const [hogsDisplayed, showHogs] = useState(hogs)
   const [showInfo, setShowInfo] = useState(false)
   console.log(hogs)
 
@@ -23,9 +23,20 @@ function HogTile({hogs}){
     )
   })
 
+  const [showGreased, setGreased] = useState(true)
+  function handleGreased() {
+    setGreased(!showGreased)
+    if(showGreased) {
+      const greasedHogs = hogs.filter((hog) => hog.greased)
+      showHogs(greasedHogs)
+    } else {
+      showHogs(hogs)
+    }
+  }
+
   
 
-  const hogTile = hogs.map((hog) => {
+  const hogTile = hogsDisplayed.map((hog) => {
     return (
       <div className="pigTile" key={hog.name}>
         <h3>{hog.name}</h3>
@@ -36,6 +47,7 @@ function HogTile({hogs}){
   })
   return (
     <>
+    <button onClick={handleGreased}>{showGreased ? "Only Greased" : "Show All"}</button>
     {hogTile}
     </>
   )
