@@ -34,6 +34,27 @@ function HogTile({hogs}){
     }
   }
 
+
+  const [filter, setFilter] = useState("all")
+  function handleFilter(event) {
+    setFilter(event.target.value)
+    switch (event.target.value) {
+      case "all":
+        showHogs(hogs)
+        break;
+      case "weight":
+        const byWeight = hogs.sort((a,b) => a.weight < b.weight ? 1 : -1)
+        showHogs(byWeight)
+        break;
+      case "name":
+        const byName = hogs.sort((a,b) => a.name > b.name ? 1 : -1)
+        showHogs(byName)
+        break;
+      default:
+        break;
+    }
+    console.log(filter)
+  }
   
 
   const hogTile = hogsDisplayed.map((hog) => {
@@ -47,6 +68,14 @@ function HogTile({hogs}){
   })
   return (
     <>
+    <div>
+    <h4>Sort hogs!!</h4>
+      <select onChange={handleFilter}>
+        <option value="all">Show All</option>
+        <option value="name">Name (ascending)</option>
+        <option value="weight">Weight (descending)</option>
+      </select>
+    </div>
     <button onClick={handleGreased}>{showGreased ? "Only Greased" : "Show All"}</button>
     {hogTile}
     </>
