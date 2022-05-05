@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import AddNew from "./AddNew";
+import AddNewHog from "./AddNewHog";
 import HogInfo from "./HogInfo"
 
 function HogTile({hogs}){
@@ -64,25 +64,29 @@ function HogTile({hogs}){
     showHogs(tilesshown)
   }
 
-  function handleAddHog(event) {
-    event.preventDefault()
-    console.log(event.target['text'])
-  }
-  
-
   const hogTile = hogsDisplayed.map((hog) => {
     return (
-      <div className="pigTile" key={hog.name}>
+      <div className="pigTile" key={hog.name} onClick={handleClick} onDoubleClick={() => toggleHog(hog.name)} >
         <h3>{hog.name}</h3>
-        <img src={hog.image} alt={hog.name} onClick={handleClick} onDoubleClick={() => toggleHog(hog.name)} />
+        <img src={hog.image} alt={hog.name} />
         {hogInfo[0].key === hog.name ? hogInfo : null}
-        {/* <button onClick={() => toggleHog(hog.name)}>{hogInfo[0].key === hog.name ? "Hide" : "Show"}</button> */}
+        <button onClick={() => toggleHog(hog.name)}>{hogInfo[0].key === hog.name ? "Hide" : "Show"}</button>
       </div>
     )
-  })
+  });
+
+  const addHog = (userInput) => {
+    let copy = [...hogs]
+    console.log("data submitting")
+    copy = [...copy, userInput]
+    showHogs(copy)
+    console.log("copy: ", copy)
+  }
+
+
   return (
     <>
-    <AddNew handleSubmit={handleAddHog}/>
+    <AddNewHog hogData={hogs} addHog={addHog}/>
     <br />
     <br />
     <div>
